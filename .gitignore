@@ -1,0 +1,6 @@
+node_modules
+packages/cli/node_modules
+packages/skeletons/node_modules
+packages/themes/node_modules
+packages/www/node_modules
+.DS_STORE

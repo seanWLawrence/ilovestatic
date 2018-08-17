@@ -1,0 +1,32 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "commitizen": "^2.10.1",
+    "cz-lerna-changelog": "^1.2.1",
+    "eslint": "^5.3.0",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-jest": "^21.21.0",
+    "flow-bin": "^0.79.0",
+    "jest": "^23.5.0",
+    "lerna": "^3.0.6",
+    "prettier": "^1.14.2",
+    "prettier-eslint": "^8.8.2",
+    "prettier-eslint-cli": "^4.7.1"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint": "make lint",
+    "commit": "make commit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
+    }
+  }
+}
