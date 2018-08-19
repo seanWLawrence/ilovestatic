@@ -2,12 +2,18 @@
   "name": "root",
   "private": true,
   "devDependencies": {
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-flow": "^7.0.0-rc.1",
+    "babel-watch": "^2.0.7",
     "commitizen": "^2.10.1",
     "cz-lerna-changelog": "^1.2.1",
     "eslint": "^5.3.0",
     "eslint-plugin-flowtype": "^2.50.0",
     "eslint-plugin-jest": "^21.21.0",
     "flow-bin": "^0.79.0",
+    "generator-generator": "^4.0.2",
     "jest": "^23.5.0",
     "lerna": "^2.11.0",
     "lerna-semantic-release": "^9.1.0",
@@ -21,7 +27,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "make lint",
-    "commit": "make commit"
+    "commit": "make commit",
+    "lerna": "make lerna"
   },
   "keywords": [],
   "author": "",
@@ -35,5 +42,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/seanWLawrence/ilovestatic.git"
+  },
+  "dependencies": {
+    "mustache": "^2.3.2"
   }
 }

@@ -4,3 +4,4 @@ packages/skeletons/node_modules
 packages/themes/node_modules
 packages/www/node_modules
 .DS_STORE
+ lib/

@@ -6,6 +6,6 @@ test:
 
 commit:
 	git-cz
-	lerna-semantic-release pre
-	lerna-semantic-release perform
-	lerna-semantic-release post
+
+lerna-bootstrap:
+	npx lerna bootsrap
