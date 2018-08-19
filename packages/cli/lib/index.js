@@ -2,7 +2,7 @@
 
 var _fs = _interopRequireDefault(require("fs"));
 
-var _path2 = _interopRequireDefault(require("path"));
+var _path = _interopRequireDefault(require("path"));
 
 var _inquirer = _interopRequireDefault(require("inquirer"));
 
@@ -31,28 +31,40 @@ function () {
     _classCallCheck(this, Template);
 
     // name of template
-    this.name = name; // data for the template to render
+    this.name = name.toLowerCase(); // data for the template to render
 
     this.data = data;
   }
 
   _createClass(Template, [{
-    key: "path",
-    value: function path() {
+    key: "templatePath",
+    value: function templatePath() {
       // get path of the template, based on the name
-      return _path2.default.join(__dirname, '..', 'src/templates/', "".concat(this.name, ".mustache"));
+      return _path.default.join(__dirname, '..', 'src/templates/', "".concat(this.name, ".mustache"));
+    }
+  }, {
+    key: "renderPath",
+    value: function renderPath() {
+      return _path.default.join(__dirname, "".concat(this.name, "s"), this.data.name);
     }
   }, {
     key: "load",
     value: function load() {
       // load the template as a string
-      return _fs.default.readFileSync(this.path(), 'utf-8');
+      return _fs.default.readFileSync(this.templatePath(), 'utf-8');
     }
   }, {
     key: "render",
     value: function render() {
       // render the template with the data
       return (0, _mustache.render)(this.load(), this.data);
+    }
+  }, {
+    key: "createFile",
+    value: function createFile() {
+      var extension = this.name === 'page' ? '.md' : '.js';
+
+      _fs.default.writeFileSync("".concat(this.renderPath()).concat(extension), this.render());
     }
   }, {
     key: "log",
@@ -77,8 +89,13 @@ function () {
   _createClass(Props, [{
     key: "split",
     value: function split() {
-      // split props by empty space and put them in an array
-      return this.props.split(' ');
+      if (this.props.indexOf(' ')) {
+        // if multiple props, split them by empty space and put them in an array
+        return this.props.split(' ');
+      } // if not, simply return the single prop
+
+
+      return this.props;
     }
   }, {
     key: "reduce",
@@ -134,14 +151,14 @@ _inquirer.default.prompt([{
 }]).then(function (answers) {
   var name = answers.name,
       template = answers.template,
-      props = answers.props; // format the template name to lower case
-
-  template = template.toLowerCase(); // format props into prop name and type objects in an array
+      props = answers.props; // format props into prop name and type objects in an array
 
   props = new Props(props).format(); // log result for debugging
 
-  new Template(template, {
+  var result = new Template(template, {
     props: props,
     name: name
-  }).log();
+  });
+  result.log();
+  result.createFile();
 });

@@ -8,12 +8,12 @@ import { render } from 'mustache';
 class Template {
   constructor(name, data) {
     // name of template
-    this.name = name;
+    this.name = name.toLowerCase();
     // data for the template to render
     this.data = data;
   }
 
-  path() {
+  templatePath() {
     // get path of the template, based on the name
     return path.join(
       __dirname,
@@ -23,14 +23,23 @@ class Template {
     );
   }
 
+  renderPath() {
+    return path.join(__dirname, `${this.name}s`, this.data.name);
+  }
+
   load() {
     // load the template as a string
-    return fs.readFileSync(this.path(), 'utf-8');
+    return fs.readFileSync(this.templatePath(), 'utf-8');
   }
 
   render() {
     // render the template with the data
     return render(this.load(), this.data);
+  }
+
+  createFile() {
+    let extension = this.name === 'page' ? '.md' : '.js';
+    fs.writeFileSync(`${this.renderPath()}${extension}`, this.render());
   }
 
   log() {
@@ -45,8 +54,12 @@ class Props {
   }
 
   split() {
-    // split props by empty space and put them in an array
-    return this.props.split(' ');
+    if (this.props.indexOf(' ')) {
+      // if multiple props, split them by empty space and put them in an array
+      return this.props.split(' ');
+    }
+    // if not, simply return the single prop
+    return this.props;
   }
 
   reduce(acc, next) {
@@ -90,11 +103,10 @@ inquirer
   ])
   .then((answers) => {
     let { name, template, props } = answers;
-
-    // format the template name to lower case
-    template = template.toLowerCase();
     // format props into prop name and type objects in an array
     props = new Props(props).format();
     // log result for debugging
-    new Template(template, { props, name }).log();
+    let result = new Template(template, { props, name });
+    result.log();
+    result.createFile();
   });

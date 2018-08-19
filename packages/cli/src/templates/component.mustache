@@ -1,24 +1,26 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 type Props = {
   {{#props}}
-    {{name}}: {{type}}, 
+  {{name}}: {{type}}, 
   {{/props}}
-}
+};
 
 export default class {{name}} extends Component<Props, {}> {
 
   render() {
     let {
       {{#props}}
-        {{name}}
+      {{name}},
       {{/props}}
-      } = this.props
+    } = this.props;
 
     return (
+      <>
+        New component
       </>
     )
   }
-}
+};
