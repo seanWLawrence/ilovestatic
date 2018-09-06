@@ -1,4 +1,4 @@
-# ILOVESTATIC - [WIP - not ready for use]
+# ILOVESTATIC [Work in progress - not ready for use]
 
 SEO-optimized, 100% Google Lighthouse Score static website generator.
 
